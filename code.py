@@ -1,6 +1,9 @@
 def tic_tac_toe():
 
     def win_condition(symbol):
+        '''
+        Checks if a player wins
+        '''
         return ((board[15] == board[21] == board[27] == symbol)
             or (board[49] == board[55] == board[61] == symbol) 
             or (board[83] == board[89] == board[95] == symbol)
@@ -22,7 +25,7 @@ def tic_tac_toe():
  
         if i%2==0:
             try:
-                if board[sel_dict[selection]] == " ":
+                if board[sel_dict[selection]] == " ": # Only if the box have not been selected before 
                     board[sel_dict[selection]] = 'x'
                     i += 1 
                 else:
