@@ -2,29 +2,32 @@
     TODO
 """
 
+from typing import Dict, List
+
 
 def tic_tac_toe() -> None:
     counter: int = 0
 
-    def win_condition(symbol) -> bool:
+    def win_condition(symbol: str) -> bool:
         return (
-            board[15] == board[21] == board[27] == symbol
-            or board[49] == board[55] == board[61] == symbol
-            or board[83] == board[89] == board[95] == symbol
-            or board[15] == board[49] == board[83] == symbol
-            or board[21] == board[55] == board[89] == symbol
-            or board[27] == board[61] == board[95] == symbol
-            or board[15] == board[55] == board[95] == symbol
-            or board[27] == board[55] == board[83] == symbol
+            board_list[15] == board_list[21] == board_list[27] == symbol
+            or board_list[49] == board_list[55] == board_list[61] == symbol
+            or board_list[83] == board_list[89] == board_list[95] == symbol
+            or board_list[15] == board_list[49] == board_list[83] == symbol
+            or board_list[21] == board_list[55] == board_list[89] == symbol
+            or board_list[27] == board_list[61] == board_list[95] == symbol
+            or board_list[15] == board_list[55] == board_list[95] == symbol
+            or board_list[27] == board_list[55] == board_list[83] == symbol
         )
 
     def reset() -> bool:
         nonlocal counter
         rematch: str = input("Do you want to play again? (y/n)\n")
-        if rematch in ("y", "yes"):
+        if rematch.strip().lower() in ("y", "yes"):
             counter = 0
             tic_tac_toe()
             return True
+
         else:
             print("Goodbye! Thanks for playing.")
             return False
@@ -33,21 +36,28 @@ def tic_tac_toe() -> None:
         nonlocal counter
         selection: str = input("Select box:").strip().lower()
         try:
-            if board[sel_dict[selection]] == " ":
-                board[sel_dict[selection]] = symbol
-                counter += 1
-            else:
-                print("Box already selected!")
+            position: int = sel_dict[selection]
 
         except KeyError:
             print("Invalid box!")
+
+        else:
+            if board_list[position] == " ":
+                board_list[position] = symbol
+                counter += 1
+
+            else:
+                print("Box already selected!")
+
         print_board: str = ""
-        for x in board:
+        for x in board_list:
             print_board += x
+
         print(print_board)
 
     print("Welcome to Tic-Tac-Toe!")
-    boar: str = (
+
+    board: str = (
         "     |     |\n"
         "     |     |   \n"
         "-----|-----|-----\n"
@@ -56,8 +66,10 @@ def tic_tac_toe() -> None:
         "     |     |   \n"
         "     |     |"
     )
-    board: list = [x for x in boar]
-    sel_dict: dict = {
+
+    board_list: List[str] = [x for x in board]
+
+    sel_dict: Dict[str, int] = {
         "a1": 15,
         "a2": 21,
         "a3": 27,
@@ -68,6 +80,7 @@ def tic_tac_toe() -> None:
         "c2": 89,
         "c3": 95,
     }
+
     select_board: str = (
         "     |     |\n"
         " a1  | a2  | a3 \n"
@@ -77,6 +90,7 @@ def tic_tac_toe() -> None:
         " c1  | c2  | c3\n"
         "     |     |"
     )
+
     print(select_board)
 
     while counter < 9:
@@ -97,5 +111,5 @@ def tic_tac_toe() -> None:
             reset()
             break
 
-
-tic_tac_toe()
+if __name__ == "__main__":
+    tic_tac_toe()
