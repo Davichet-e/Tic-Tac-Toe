@@ -49,9 +49,7 @@ def tic_tac_toe() -> None:
             else:
                 print("Box already selected!")
 
-        print_board: str = ""
-        for x in board_list:
-            print_board += x
+        print_board: str = "".join([char for char in board_list])
 
         print(print_board)
 
@@ -67,7 +65,7 @@ def tic_tac_toe() -> None:
         "     |     |"
     )
 
-    board_list: List[str] = [x for x in board]
+    board_list: List[str] = list(board)
 
     sel_dict: Dict[str, int] = {
         "a1": 15,
