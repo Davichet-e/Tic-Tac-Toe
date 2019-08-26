@@ -1,12 +1,13 @@
-"""
-    TODO
+"""One of the most iconic games on the history of humanity, now in Python
 """
 
 from typing import Dict, List
 
 
 def tic_tac_toe() -> None:
-    counter: int = 0
+    """Basic implementation of the Tic Tac Toe game on python.
+    Just call this function and enjoy!
+    """
 
     def win_condition(symbol: str) -> bool:
         return (
@@ -21,22 +22,23 @@ def tic_tac_toe() -> None:
         )
 
     def reset() -> bool:
-        nonlocal counter
-        rematch: str = input("Do you want to play again? (y/n)\n")
-        if rematch.strip().lower() in ("y", "yes"):
-            counter = 0
-            tic_tac_toe()
-            return True
+        reset: bool
+        rematch: str = input("Do you want to play again? (y/n)\n").strip().lower()
+
+        if rematch in {"y", "yes", "1"}:
+            reset = True
 
         else:
             print("Goodbye! Thanks for playing.")
-            return False
+            reset = False
+
+        return reset
 
     def turn(symbol: str) -> None:
         nonlocal counter
-        selection: str = input("Select box:").strip().lower()
+        selection: str = input("Select box: ").strip().lower()
         try:
-            position: int = sel_dict[selection]
+            position: int = selection_points[selection]
 
         except KeyError:
             print("Invalid box!")
@@ -49,25 +51,21 @@ def tic_tac_toe() -> None:
             else:
                 print("Box already selected!")
 
-        print_board: str = "".join([char for char in board_list])
+        print_board: str = "".join(board_list)
 
         print(print_board)
 
-    print("Welcome to Tic-Tac-Toe!")
-
-    board: str = (
+    select_board: str = (
         "     |     |\n"
-        "     |     |   \n"
+        " a1  | a2  | a3\n"
         "-----|-----|-----\n"
-        "     |     |   \n"
+        " b1  | b2  | b3\n"
         "-----|-----|-----\n"
-        "     |     |   \n"
+        " c1  | c2  | c3\n"
         "     |     |"
     )
-
-    board_list: List[str] = list(board)
-
-    sel_dict: Dict[str, int] = {
+    # This dict relate the name of the cell to its position in the select_board string
+    selection_points: Dict[str, int] = {
         "a1": 15,
         "a2": 21,
         "a3": 27,
@@ -79,35 +77,44 @@ def tic_tac_toe() -> None:
         "c3": 95,
     }
 
-    select_board: str = (
-        "     |     |\n"
-        " a1  | a2  | a3 \n"
-        "-----|-----|-----\n"
-        " b1  | b2  | b3\n"
-        "-----|-----|-----\n"
-        " c1  | c2  | c3\n"
-        "     |     |"
-    )
+    run: bool = True
+    while run:
+        counter: int = 0
 
-    print(select_board)
+        board: str = (
+            "     |     |\n"
+            "     |     |   \n"
+            "-----|-----|-----\n"
+            "     |     |   \n"
+            "-----|-----|-----\n"
+            "     |     |   \n"
+            "     |     |"
+        )
 
-    while counter < 9:
-        if counter % 2 == 0:
-            turn("x")
-            if win_condition("x"):
-                print("Congratulations, Player1 won!")
-                reset()
-                break
+        board_list: List[str] = list(board)
+
+        print("Welcome to Tic-Tac-Toe!")
+        print(select_board)
+
+        while counter < 9:
+            if counter % 2 == 0:
+                turn("x")
+                if win_condition("x"):
+                    print("Congratulations, Player1 won!")
+                    run = reset()
+                    break
+
+            else:
+                turn("o")
+                if win_condition("o"):
+                    print("Congratulations, Player2 won!")
+                    run = reset()
+                    break
+
         else:
-            turn("o")
-            if win_condition("o"):
-                print("Congratulations, Player2 won!")
-                reset()
-                break
-        if counter == 9:
             print("It is a tie!")
-            reset()
-            break
+            run = reset()
+
 
 if __name__ == "__main__":
     tic_tac_toe()
