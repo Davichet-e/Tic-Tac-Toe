@@ -22,17 +22,8 @@ def tic_tac_toe() -> None:
         )
 
     def reset() -> bool:
-        reset: bool
         rematch: str = input("Do you want to play again? (y/n)\n").strip().lower()
-
-        if rematch in {"y", "yes", "1"}:
-            reset = True
-
-        else:
-            print("Goodbye! Thanks for playing.")
-            reset = False
-
-        return reset
+        return rematch in {"y", "yes", "1"}
 
     def turn(symbol: str) -> None:
         nonlocal counter
@@ -114,6 +105,8 @@ def tic_tac_toe() -> None:
         else:
             print("It is a tie!")
             run = reset()
+
+    print("\nGoodbye! Thanks for playing.")
 
 
 if __name__ == "__main__":
